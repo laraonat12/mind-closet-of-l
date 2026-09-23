@@ -128,16 +128,15 @@ import { withBase } from '../lib/url';
     transform: scaleY(calc(1 - var(--land, 0) * 0.05));
   }
 
-  .cherry {
+  #cherry {
     transform-box: fill-box;
     transform-origin: center;
-    transform: translate(70px, -70px) translateY(calc(var(--drop, 0) * -1px))
-      rotate(calc(var(--drop, 0) * 0.4deg));
-  }
-  #cherry {
-    /* base position sits just above the top tier; --drop animates it down as you scroll */
+    /* invisible until you start scrolling, then pops in out of nowhere and
+       drifts down (--drop) to land on the top tier */
+    opacity: var(--appear, 0);
     transform: translate(140px, 40px) translateY(calc(-1 * (1 - var(--drop, 0)) * 90px))
-      rotate(calc((1 - var(--drop, 0)) * -18deg));
+      rotate(calc((1 - var(--drop, 0)) * -18deg))
+      scale(calc(0.5 + var(--appear, 0) * 0.5));
   }
 
   @media (max-width: 780px) {
@@ -170,8 +169,11 @@ import { withBase } from '../lib/url';
     const raw = -rect.top / (rect.height * 0.6);
     const progress = Math.min(Math.max(raw, 0), 1);
     const eased = easeOutBack(progress);
+    // pops into view during the first third of the scroll, then drifts/lands
+    const appear = Math.min(progress / 0.3, 1);
     svg.style.setProperty('--drop', String(eased));
     svg.style.setProperty('--land', String(progress));
+    svg.style.setProperty('--appear', String(appear));
   }
 
   updateDrop();

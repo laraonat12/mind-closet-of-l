@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CakeHero from '../components/CakeHero.astro';
+import PostCard from '../components/PostCard.astro';
+
+const allPosts = await getCollection('posts');
+const latest = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title="Ana Sayfa">
+  <CakeHero />
+
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>Son Yazılar</h2>
+      <a href="/yazilar">Tümünü gör &rarr;</a>
+    </div>
+    <div class="grid">
+      {
+        latest.map((post) => (
+          <PostCard
+            slug={post.id}
+            title={post.data.title}
+            excerpt={post.data.excerpt}
+            date={post.data.date}
+            category={post.data.category}
+          />
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  .section-head h2 {
+    margin: 0;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

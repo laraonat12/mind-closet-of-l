@@ -1,0 +1,79 @@
+---
+const nav = [
+  { href: '/', label: 'Ana Sayfa' },
+  { href: '/yazilar', label: 'Yazılar' },
+  { href: '/hakkimda', label: 'Hakkımda' },
+];
+const current = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="logo" href="/">
+      Mind Closet <span class="of">of</span> <span class="l">L</span>
+    </a>
+    <nav>
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class:list={['nav-link', { active: current === item.href }]}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--color-coffee);
+    letter-spacing: 0.01em;
+  }
+  .logo:hover {
+    text-decoration: none;
+  }
+  .logo .of {
+    font-style: italic;
+    color: var(--color-coffee-soft);
+    font-weight: 500;
+  }
+  .logo .l {
+    color: var(--color-cherry);
+  }
+  nav {
+    display: flex;
+    gap: 22px;
+  }
+  .nav-link {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    padding-bottom: 3px;
+    border-bottom: 2px solid transparent;
+  }
+  .nav-link:hover {
+    text-decoration: none;
+    border-bottom-color: var(--color-pink);
+  }
+  .nav-link.active {
+    color: var(--color-cherry-dark);
+    border-bottom-color: var(--color-cherry);
+  }
+</style>

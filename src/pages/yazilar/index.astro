@@ -1,0 +1,111 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { CATEGORY_LABELS } from '../../lib/categories';
+
+const allPosts = (await getCollection('posts')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title="Yazılar">
+  <section class="section wrap">
+    <span class="pill">Arşiv</span>
+    <h1>Tüm Yazılar</h1>
+    <p class="intro">Şehir, stil ve ekrandan notlar — hepsi bir arada.</p>
+
+    <div class="filters" data-filters>
+      <button class="filter active" data-filter="all">Hepsi</button>
+      {
+        Object.entries(CATEGORY_LABELS).map(([key, label]) => (
+          <button class="filter" data-filter={key}>
+            {label}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="grid" data-post-grid>
+      {
+        allPosts.map((post) => (
+          <div class="grid-item" data-category={post.data.category}>
+            <PostCard
+              slug={post.id}
+              title={post.data.title}
+              excerpt={post.data.excerpt}
+              date={post.data.date}
+              category={post.data.category}
+            />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  h1 {
+    margin-top: 14px;
+  }
+  .intro {
+    color: var(--color-coffee-soft);
+    margin-bottom: 28px;
+  }
+  .filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .filter {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: #fff;
+    color: var(--color-coffee);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .filter:hover {
+    border-color: var(--color-pink);
+  }
+  .filter.active {
+    background: var(--color-coffee);
+    border-color: var(--color-coffee);
+    color: #fff8f4;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .grid-item.hidden {
+    display: none;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const items = document.querySelectorAll<HTMLElement>('[data-category]');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      items.forEach((item) => {
+        const match = filter === 'all' || item.dataset.category === filter;
+        item.classList.toggle('hidden', !match);
+      });
+    });
+  });
+</script>

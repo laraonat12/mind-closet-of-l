@@ -1,0 +1,76 @@
+---
+import { categoryLabel } from '../lib/categories';
+
+interface Props {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: Date;
+  category: string;
+}
+
+const { slug, title, excerpt, date, category } = Astro.props;
+const formatted = date.toLocaleDateString('tr-TR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<a class="card" href={`/yazilar/${slug}`}>
+  <span class="pill">{categoryLabel(category)}</span>
+  <h3>{title}</h3>
+  <p>{excerpt}</p>
+  <span class="date">{formatted}</span>
+  <span class="cherry-dot" aria-hidden="true"></span>
+</a>
+
+<style>
+  .card {
+    position: relative;
+    display: block;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 26px 26px 22px;
+    color: var(--color-text);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    overflow: hidden;
+  }
+  .card:hover {
+    text-decoration: none;
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-soft);
+    border-color: var(--color-pink);
+  }
+  .card h3 {
+    margin: 12px 0 8px;
+    font-size: 1.25rem;
+  }
+  .card p {
+    color: var(--color-coffee-soft);
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+  }
+  .date {
+    font-size: 0.8rem;
+    color: var(--color-coffee-soft);
+    font-weight: 500;
+  }
+  .cherry-dot {
+    position: absolute;
+    top: -18px;
+    right: 18px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--color-cherry);
+    opacity: 0;
+    transform: translateY(-10px) scale(0.6);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .card:hover .cherry-dot {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+</style>

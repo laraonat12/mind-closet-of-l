@@ -1,0 +1,115 @@
+:root {
+  /* palette: warm white, powder pink, coffee brown, cherry red */
+  --color-bg: #fffaf7;
+  --color-bg-card: #ffffff;
+  --color-pink: #f6d6da;
+  --color-pink-soft: #fcebed;
+  --color-coffee: #5a4032;
+  --color-coffee-soft: #8a6a57;
+  --color-text: #2b211d;
+  --color-cherry: #c9455f;
+  --color-cherry-dark: #a8324a;
+  --color-border: #ecdcd8;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Work Sans", "Segoe UI", sans-serif;
+
+  --radius-lg: 28px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+
+  --shadow-soft: 0 12px 30px -14px rgba(90, 64, 50, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+  color: var(--color-coffee);
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--color-cherry-dark);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: var(--color-pink-soft);
+  color: var(--color-cherry-dark);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 26px;
+  border-radius: 999px;
+  background: var(--color-coffee);
+  color: #fff8f4;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--color-cherry-dark);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.section {
+  padding: 72px 0;
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 48px 0;
+  }
+}

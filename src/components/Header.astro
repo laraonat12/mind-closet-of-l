@@ -1,15 +1,17 @@
 ---
+import { withBase } from '../lib/url';
+
 const nav = [
-  { href: '/', label: 'Ana Sayfa' },
-  { href: '/yazilar', label: 'Yazılar' },
-  { href: '/hakkimda', label: 'Hakkımda' },
+  { href: withBase('/'), label: 'Ana Sayfa' },
+  { href: withBase('/yazilar'), label: 'Yazılar' },
+  { href: withBase('/hakkimda'), label: 'Hakkımda' },
 ];
 const current = Astro.url.pathname;
 ---
 
 <header class="site-header">
   <div class="wrap bar">
-    <a class="logo" href="/">
+    <a class="logo" href={withBase('/')}>
       Mind Closet <span class="of">of</span> <span class="l">L</span>
     </a>
     <nav>

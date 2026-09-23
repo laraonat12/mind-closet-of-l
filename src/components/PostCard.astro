@@ -1,5 +1,6 @@
 ---
 import { categoryLabel } from '../lib/categories';
+import { withBase } from '../lib/url';
 
 interface Props {
   slug: string;
@@ -17,7 +18,7 @@ const formatted = date.toLocaleDateString('tr-TR', {
 });
 ---
 
-<a class="card" href={`/yazilar/${slug}`}>
+<a class="card" href={withBase(`/yazilar/${slug}`)}>
   <span class="pill">{categoryLabel(category)}</span>
   <h3>{title}</h3>
   <p>{excerpt}</p>

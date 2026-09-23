@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/url';
 // A little cake shaped like a city skyline: as you scroll past the hero,
 // the cherry drifts down and lands (with a soft bounce) on the top tier.
 ---
@@ -15,7 +16,7 @@
         hikayelerin kesiştiği yer. Bazen bir sokak, bazen bir kombin, bazen
         bir dizi finali — hepsi burada bir araya geliyor.
       </p>
-      <a class="btn" href="/yazilar">Yazılara göz at</a>
+      <a class="btn" href={withBase('/yazilar')}>Yazılara göz at</a>
     </div>
 
     <div class="hero-art" aria-hidden="true">

@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CakeHero from '../components/CakeHero.astro';
 import PostCard from '../components/PostCard.astro';
+import { withBase } from '../lib/url';
 
 const allPosts = await getCollection('posts');
 const latest = allPosts
@@ -16,7 +17,7 @@ const latest = allPosts
   <section class="section wrap">
     <div class="section-head">
       <h2>Son Yazılar</h2>
-      <a href="/yazilar">Tümünü gör &rarr;</a>
+      <a href={withBase('/yazilar')}>Tümünü gör &rarr;</a>
     </div>
     <div class="grid">
       {
